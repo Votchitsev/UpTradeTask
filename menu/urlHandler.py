@@ -1,31 +1,37 @@
-def isMatch(item, slugList):
-    itemSlugList = item.slug.split('-')
-
-    result = True
-
-    for n in range(min(len(itemSlugList), len(slugList))):
-        if itemSlugList[n] == slugList[n]:
-            continue
-        else:
-            if n == len(slugList):
-                break
-            else:
-                result = False
-
-    if len(itemSlugList) > len(slugList) + 1:
-        result = False
+def defineLevel(arr):
+    result = [{ 
+        "data": item,
+        "level": len(item["slug"].split('-'))
+        } for item in arr] 
 
     return result
 
 
-
 def urlHandler(slug, queryset):
-    result = []
 
-    slugList = slug.split('-')
-
-    for item in queryset:
-        if isMatch(item, slugList):
-            result.append(item)
+    if slug == None:
+        return [{
+            "data": queryset.first(),
+            "level": 0
+        }]
     
+    slug_list = slug.split('-')
+    result = queryset.values()
+    
+    for n in range(len(slug_list)):
+        pattern  = slug_list[n]
+
+        new_result = []
+
+        for item in result:
+            if item["slug"].find(pattern) >= 0 or len(item["slug"].split('-')) <= n + 1:
+                if len(item["slug"].split('-')) <= len(slug_list) + 1:    
+                    new_result.append(item)
+        
+        result = new_result
+    
+    result.sort(key=lambda result: result["slug"])
+
+    result = defineLevel(result)
+
     return result

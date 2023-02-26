@@ -1,5 +1,5 @@
-<ul>
-  {% for i in items %}
-    <li><a href="/{{ i.slug }}/">{{ i }}</a></li>
-  {% endfor %}
-</ul>
+{% load draw_menu %}
+
+{% draw_menu 'Menu1' %}
+
+{% draw_menu 'Menu2' %}

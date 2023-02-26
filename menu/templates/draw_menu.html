@@ -1,0 +1,4 @@
+<h2>{{ title }}</h2>
+{% for item in items %}
+  <li style="margin-left: {{item.level}}0px;"><a href="/{{ item.data.slug }}/">{{ item.data.name }}</a></li>
+{% endfor %}
