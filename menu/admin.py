@@ -1,15 +1,14 @@
 from django.contrib import admin
-from .models import MainMenu, Item
+from .models import Menu, Item
 
 class ItemInline(admin.TabularInline):
   model = Item
-  # prepopulated_fields = {
-  #   'slug': ('name', )
-  # }
 
-class MainMenuAdmin(admin.ModelAdmin):
+
+class MenuAdmin(admin.ModelAdmin):
     inlines = [
       ItemInline,
     ]
 
-admin.site.register(MainMenu, MainMenuAdmin)
+
+admin.site.register(Menu, MenuAdmin)

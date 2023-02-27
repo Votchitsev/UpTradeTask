@@ -1,14 +1,25 @@
 from django.db import models
 from django.urls import reverse
 
-class MainMenu(models.Model):
+class Menu(models.Model):
     name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Меню"
+        verbose_name_plural = "Меню"
+
 
 class Item(models.Model):
     name = models.CharField(max_length=50)
-    menu = models.ForeignKey(MainMenu, on_delete=models.CASCADE)
-    parent = models.ForeignKey('self', verbose_name='parent', related_name='child', blank=True, null=True, on_delete=models.CASCADE)
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
     slug = models.SlugField(unique='name')
 
-    def get_absolute_url(self):
-        return reverse('items', kwargs={"slug": self.slug})
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Пункт меню"
+        verbose_name_plural = "Пункты меню"

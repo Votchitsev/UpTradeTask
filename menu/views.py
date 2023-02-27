@@ -1,10 +1,9 @@
-# from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 
 
 def index(request):
-    template = loader.get_template('menu/index.html')
+    template = loader.get_template('index.html')
 
     context = {
       'slug': None
@@ -14,7 +13,7 @@ def index(request):
 
 
 def getItems(request, slug):
-    template = loader.get_template('menu/index.html')
+    template = loader.get_template('index.html')
     
     context = {
       'slug': slug,

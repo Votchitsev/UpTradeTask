@@ -10,10 +10,13 @@ def defineLevel(arr):
 def urlHandler(slug, queryset):
 
     if slug == None:
-        return [{
-            "data": queryset.first(),
+        result = [{
+            "data": item,
             "level": 0
-        }]
+            } for item in queryset if len(item.slug.split('-')) == 1]
+
+        return result
+
     
     slug_list = slug.split('-')
     result = queryset.values()
